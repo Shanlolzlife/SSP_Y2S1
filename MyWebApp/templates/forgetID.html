@@ -20,42 +20,36 @@
                 <label for="country" id = "oldPassLabel"> Email:</label>
                 <input type="email" class="form-control" name="IDEmail">
             </div>
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% for category, message in messages %}
-            {%if message == "Please do reCaptcha"%}
             <div class="form-group">
                 <label for="country" id = "oldPassLabel">Username:</label>
-            </div>
-            <br>
-            <div align="center">
-			{{ recaptcha }}
-            </div>
-			{% if messages %}
-            <ul class=flashes>
-                <li class="{{ category }}"> test </li>
+                {% with messages = get_flashed_messages(with_categories=false) %}
+			    
+                {%if messages[0] == "Please do reCaptcha" or messages[0] == "Email not registered !"%}
                 
-            </ul>
-            {% endif %}
-            {% endfor %}
-			{% endwith %}
-            {%else%}
-            <div class="form-group">
-                <label for="country" id = "oldPassLabel">Username:</label>
-                {% with messages = get_flashed_messages(with_categories=true) %}
-			    {% if messages %}
+                <div align="center">
+                    {{ recaptcha }}
+                    </div>
 				<ul class=flashes>
-                    {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                    {% endfor %}
+                    <li class="{{ category }}">{{messages[0]}}</li>
 				</ul>
-			{% endif %}
-			{% endwith %}
-            </div>
+                <br>
+            
+            {%else%}
+            
+            <ul class=flashes>
+                {% if messages %}
+                <li class="{{ category }}">{{messages[0]}}</li>
+                {% endif %}
+            </ul>
             <br>
             <div align="center">
-			{{ recaptcha }}
+                {{ recaptcha }}
             </div>
-            {%endif%}
+            
+            {% endif %}
+			{% endwith %}
+            </div>
+            
             <div align="center">
                 <br>
             <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;">Update</button>

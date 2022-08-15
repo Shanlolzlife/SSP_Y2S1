@@ -113,6 +113,10 @@ def login():
     # Output message if something goes wrong...
     msg = ''
     # Check if "username" and "password" POST requests exist (user submitted form)
+    try:
+        print(session['attempt'])
+    except:
+        session['attempt'] = 2
     if request.method == 'POST' and 'username' in request.form and 'passworddd' in request.form:
     # Create variables for easy access
         username = request.form['username']
@@ -151,8 +155,23 @@ def login():
                 
                 else:
                     super_logger.error("Log in unsuccessful " + sql_account['username'])
+                    attempt= session.get('attempt')
+                    attempt -= 1
+                    session['attempt']=attempt
                     msg = 'Incorrect username/password!'
-                    return render_template('index.html', msg=msg)
+                    if attempt==1:
+                        flash("This will be your last attempt or you will be blocked for 7 minutes.")
+                        return render_template("index.html")
+                    else:
+                        starttime = time.time()
+                        if request.method == 'POST' and 'username' in request.form and 'passworddd' in request.form:
+                            stoptime = time.time()
+                            if (stoptime - starttime) < 10:
+                                flash("You are still being blocked out.")
+                                return render_template("index.html")
+                            else:
+                                flash('', 'error')
+                                return render_template("index.html")
             
                 return redirect(url_for("login_2fa", msg=msg))
             else:
