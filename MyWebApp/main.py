@@ -1,5 +1,4 @@
 #Joana
-#weezers
 from time import time
 from flask import Flask, render_template, request, redirect, url_for, session, app, flash, make_response
 from flask_mysqldb import MySQL
