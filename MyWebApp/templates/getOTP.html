@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>OTP</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+</head>
+
+<body>
+
+    <div class="register">
+        <h1>OTP</h1>
+        <form action="{{ url_for('getOTP') }}" method="post" autocomplete="off">
+            <div>
+            {% if mesage is defined and mesage %}
+                <div class="alert alert-warning">{{ mesage }}</div>
+            {% endif %}
+            <div class="form-group">
+                <label for="country" id = "oldPassLabel">OTP number:</label>
+                <input type="text" name="OTP" size = '6' id='OTP' class="form-control">
+                
+                <div align="center" style="margin-bottom: 10px;">
+                <button type="submit" class="btn btn-primary">Confirm</button>
+                </div>
+        </div>
+        </form>
+</body>
+
+</html>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}

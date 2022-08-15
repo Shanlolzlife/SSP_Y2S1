@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Email</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+</head>
+
+<body>
+
+    <div class="register">
+        <h1>Email</h1>
+        <div class="links">
+          <a href="{{ url_for('email') }}" class="active">Email</a>
+          <a href="{{ url_for('phone_num') }}">Phone Number</a>
+        </div>
+        <form action="{{ url_for('email') }}" method="post" autocomplete="off">
+            <div>
+            {% if mesage is defined and mesage %}
+                <div class="alert alert-warning">{{ mesage }}</div>
+            {% endif %}
+            <div class="form-group">
+                <label for="country" id = "oldPassLabel">Email:</label>
+                <input type="email" name="emaila" class="form-control" required>
+                
+                <div align="center" style="margin-bottom: 10px;">
+                <button type="submit" class="btn btn-primary">Send email</button>
+                <div align="center" style="margin-bottom: 10px;">
+                </div>
+        </div>
+        </form>
+</body>
+
+</html>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
