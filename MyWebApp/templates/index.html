@@ -30,8 +30,12 @@
 <input type="password" name="passworddd" placeholder="Password" id="password" required>
 <div class="msg">{{ msg }}</div>
 {{ recaptcha }}
-<a href="{{url_for('forget_ID')}}">Forget ID ?</a>	
-<a href="{{url_for('email')}}">Forget password ?</a>	
+<br>
+<div align="center">
+<a href="{{url_for('forgetID')}}">Forget ID ?</a>
+<br>	
+<a href="{{url_for('email')}}">Forget password ?</a>
+</div>	
 <input type="submit" value="Login">
 </form>
 </div>

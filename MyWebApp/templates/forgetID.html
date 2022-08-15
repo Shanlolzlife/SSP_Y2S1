@@ -10,16 +10,35 @@
 <body>
 
     <div class="register">
-        <h1>Forget Password</h1>
-        <form action="{{ url_for('forget_ID') }}" method="post" autocomplete="off">
+        <h1>Forget ID</h1>
+        <form action="{{ url_for('forgetID') }}" method="post" autocomplete="off">
             <div>
             {% if mesage is defined and mesage %}
                 <div class="alert alert-warning">{{ mesage }}</div>
             {% endif %}
             <div class="form-group">
                 <label for="country" id = "oldPassLabel"> Email:</label>
-                <input type="password" class="form-control" name="IDEmail">
+                <input type="email" class="form-control" name="IDEmail">
             </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+            {%if message == "Please do reCaptcha"%}
+            <div class="form-group">
+                <label for="country" id = "oldPassLabel">Username:</label>
+            </div>
+            <br>
+            <div align="center">
+			{{ recaptcha }}
+            </div>
+			{% if messages %}
+            <ul class=flashes>
+                <li class="{{ category }}"> test </li>
+                
+            </ul>
+            {% endif %}
+            {% endfor %}
+			{% endwith %}
+            {%else%}
             <div class="form-group">
                 <label for="country" id = "oldPassLabel">Username:</label>
                 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -33,10 +52,13 @@
 			{% endwith %}
             </div>
             <br>
-            <div align="center" style="margin-bottom: 10px;">
-            <input type="hidden" id="userid" name="userid" value="{{ changePassUserId }}">
+            <div align="center">
 			{{ recaptcha }}
-            <button type="submit" class="btn btn-primary" align="center" style="margin-bottom: 10px;">Update</button>
+            </div>
+            {%endif%}
+            <div align="center">
+                <br>
+            <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;">Update</button>
             </div>
         </div>
         </form>

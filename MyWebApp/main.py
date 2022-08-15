@@ -321,11 +321,24 @@ def login_2fa():
 #    app.logger.warning('Warning level log')
 #    return f"Welcome to the blog"
 @app.route('/forget_ID', methods =['GET', 'POST'])
-def forget_ID():
-    if recaptcha.verify():
-        IDretriever = request.form['IDEmail']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM accounts WHERE email = % s' , (IDretriever, ))
+def forgetID():
+    if request.method == 'POST':
+        if recaptcha.verify():
+            IDretriever = request.form['IDEmail']
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            catchcheck = cursor.execute('SELECT * FROM accounts WHERE email = % s' , (IDretriever, ))
+            if catchcheck != 0:
+                flash(cursor.fetchone()['username'], "error")
+            else:
+                flash("Email not registered !", "error")
+        else:
+            flash("Please do reCaptcha")
+        
+        return render_template("forgetID.html")
+
+    return render_template("forgetID.html")
+    
+    
 
 @app.route("/forget_password", methods =['GET', 'POST'])
 def forget_password():
