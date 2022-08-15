@@ -61,7 +61,7 @@ def setup_logger(name, log_file, level=logging.DEBUG):
 def make_Session_Permanent():
     
     session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=1)
+    app.permanent_session_lifetime = timedelta(seconds=30)
     session.modified = True
     
 
@@ -86,15 +86,16 @@ app.secret_key = 'WHYDOYOUNOTWORKHUH'
 # Enter your database connection details below
 app.config['MYSQL_HOST'] = "localhost"
 app.config['MYSQL_USER'] = "root"
-app.config['MYSQL_PASSWORD'] = "Lolzlife101"
+app.config['MYSQL_PASSWORD'] = "L1nk1nP@rk123!"
 app.config['MYSQL_DB'] = "pythonlogin"
 app.config['RECAPTCHA_SITE_KEY'] = '6LerU_ogAAAAAM3UWoEhSj1ups9Buupha2vEJzD3'
 app.config['RECAPTCHA_SECRET_KEY'] = '6LerU_ogAAAAAPfspsQwzHXxcDYlBIhckQJw_af_'
+app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_DEFAULT_SERVER']='donotusetester7@gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'gayhoe69wannabe@gmail.com'
-app.config['MAIL_PASSWORD'] = 'chbbejmmmlppqnxt'
+app.config['MAIL_USERNAME'] = 'sjoana448@gmail.com'
+app.config['MAIL_PASSWORD'] = 'eqlmypysxlimvnwh'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
@@ -233,6 +234,9 @@ def home():
     # Check if user is loggedin
     if 'loggedin' in session:
         # User is loggedin show them the home page
+        if 'loggedin' not in session:
+            make_Session_Permanent = False
+            return redirect(url_for('login'))
         return render_template('home.html', username=session['username'])
         
     # User is not loggedin redirect to login page
@@ -287,7 +291,7 @@ def login_2fa():
         user=session['username']
         print(user)
 
-    mydb = connection.connect(host="localhost", database = 'pythonlogin',user="root", passwd="Lolzlife101",use_pure=True)
+    mydb = connection.connect(host="localhost", database = 'pythonlogin',user="root", passwd="L1nk1nP@rk123!",use_pure=True)
     query = "Select * from accounts;"
     result_dataFrame = pd.read_sql(query,mydb)
     mydb.close() #close the connection
