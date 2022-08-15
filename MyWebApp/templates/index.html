@@ -10,15 +10,6 @@
 <div class="login">
 <h1>Login</h1>
 <div class="links">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                <span>{{ message }}</span>
-            </div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
 <a href="{{ url_for('login') }}" class="active">Login</a>
 <a href="{{ url_for('register') }}">Register</a>
 </div>
@@ -31,11 +22,21 @@
 <div class="msg">{{ msg }}</div>
 {{ recaptcha }}
 <br>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            <span>{{ message }}</span>
+        </div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
 <div align="center">
-<a href="{{url_for('forgetID')}}">Forget ID ?</a>
-<br>	
-<a href="{{url_for('email')}}">Forget password ?</a>
-</div>	
+    <br>
+    <a href="{{url_for('forgetID')}}">Forget ID ?</a>
+    <br>	
+    <a href="{{url_for('email')}}">Forget password ?</a>
+    </div>	
 <input type="submit" value="Login">
 </form>
 </div>

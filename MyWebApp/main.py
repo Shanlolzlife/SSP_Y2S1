@@ -140,7 +140,6 @@ def login():
                 sql_cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
                 sql_cursor.execute('SELECT username, password FROM accounts WHERE username = %s', (username, ))
                 sql_account = sql_cursor.fetchone()
-                print(ptsd,sql_account['password'])
                 if ptsd == sql_account['password']:
                 #if bcrypt.checkpw(passwd, (sqlPassword.encode('utf-8'))):
                 # Create session data, we can access this data in other route 
@@ -166,7 +165,7 @@ def login():
                         starttime = time.time()
                         if request.method == 'POST' and 'username' in request.form and 'passworddd' in request.form:
                             stoptime = time.time()
-                            if (stoptime - starttime) < 10:
+                            if (stoptime - starttime) < 30:
                                 flash("You are still being blocked out.")
                                 return render_template("index.html")
                             else:
@@ -175,8 +174,7 @@ def login():
             
                 return redirect(url_for("login_2fa", msg=msg))
             else:
-                msg = 'Please fill out the ReCaptcha!'
-
+                flash('Please fill out the ReCaptcha!')
                 return render_template('index.html', msg=msg)  
     else:
         # Account doesn’t exist or username/password incorrect
@@ -272,14 +270,6 @@ def profile():
         return render_template('profile.html', account=account)
         # User is not loggedin redirect to login page
     return redirect(url_for('login'))
-
-@app.route("/MyWebApp/profile/resetpass")
-def resetpass():
-    if 'loggedin' in session:
-    # We need all the account info for the user so we can display it on the profile page
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM accounts WHERE id = %s', (session['id'],))
-        account = cursor.fetchone()
 
 #Pranawi's Work
 #2FA Page
@@ -409,8 +399,6 @@ def forget_password():
                 else:
                     # Another connection to MySQL database
                     if stats.strength() < 0.50:
-                        print("Enter1")
-                        print(stats.strength())
                         flash("Password not strong enough. \n Avoid consecutive characters and easily guessed words.", "error")
                     elif stats.strength() > 0.50:
                         hashpass = {"password" : password}
