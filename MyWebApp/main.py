@@ -267,6 +267,9 @@ def home():
     # Check if user is loggedin
     if 'loggedin' in session:
         # User is loggedin show them the home page
+        if 'loggedin' not in session:
+            make_Session_Permanent() == False
+            return redirect(url_for('login'))
         return render_template('home.html', username=session['username'])
         
     # User is not loggedin redirect to login page
@@ -284,6 +287,9 @@ def profile():
         cursor.execute('SELECT * FROM accounts WHERE id = %s', (session['id'],))
         account = cursor.fetchone()
         # Show the profile page with account info
+        if 'loggedin' not in session:
+            make_Session_Permanent() == False
+            return redirect(url_for('login'))
         return render_template('profile.html', account=account)
         # User is not loggedin redirect to login page
     return redirect(url_for('login'))
