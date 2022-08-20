@@ -8,17 +8,14 @@
     </head>
 
     <body class="loggedin">
-    <nav class="navtop">
-<div>
-<h1>Solitaire</h1>
-<a href="{{ url_for('home') }}"><i class="fas fa-home"></i>Home</a>
-<a href="{{ url_for('profile') }}"><i class="fas fa-user-circle"></i>Profile</a>
-<a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i>Logout</a>
-<a href="{{ url_for('notes') }}"><i class="fa fa-sticky-note"></i>Notes</a>
-<a href="{{url_for('suppliers')}}"><i class="fas fa-box-open"></i>Suppliers</a>
-<a href="{{ url_for('inventory') }}"><i class="fa fa-edit"></i>inventory management</a>
-</div>
-</nav>
+        <nav class="navtop">
+            <div>
+                <h1> Solitaire Project </h1>
+                <a href="{{ url_for('home') }}"><i class="fas fa-home"></i>Home</a>
+                <a href="{{ url_for('profile') }}"><i class="fas fa-user-circle"></i>Profile</a>
+                <a href="{{ url_for('logout') }}" onclick="confirm()"><i class="fas fa-sign-out-alt"></i>Logout</a>
+            </div>
+        </nav>
 
         <div class="content">
             {%block content%} {%endblock%}
@@ -35,5 +32,4 @@
     }
     </script>
 
-</html>
 </html>
