@@ -1,7 +1,11 @@
 # SSP Project
 Group project to implement security features learnt in school
 
-How to install?  
+How to install:  
+Step 1:  
+Git clone repository or download the zip folder itself  
+
+Step 2:    
 pip install -r requirements.txt.   
 This lets you download all of the files needed in our website
 
