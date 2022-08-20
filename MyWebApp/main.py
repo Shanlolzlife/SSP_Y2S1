@@ -35,7 +35,7 @@ import jwt
 from tkinter import PhotoImage
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user, logout_user
-from models import Notes, Message, Supplier, Product, BaseLog
+from models import Notes, Supplier, Product, BaseLog
 from forms import EditUser, AddNotes, TicketForm, AddUser, AddProductForm, EmailForm,  AddSuppliersForm
 from uuid import uuid4
 import shelve
@@ -133,7 +133,7 @@ def login():
     try:
         print(session['attempt'])
     except:
-        session['attempt'] = 2
+        session['attempt'] = 3
     if request.method == 'POST' and 'username' in request.form and 'passworddd' in request.form:
     # Create variables for easy access
         username = request.form['username']
@@ -182,7 +182,7 @@ def login():
                         starttime = time.time()
                         if request.method == 'POST' and 'username' in request.form and 'passworddd' in request.form:
                             stoptime = time.time()
-                            if (stoptime - starttime) < 30:
+                            if (stoptime - starttime) < 300:
                                 flash("You are still being blocked out.")
                                 return render_template("index.html")
                             else:
@@ -449,8 +449,11 @@ def phone_num():
         phoneNum = num
         global otp
         try:
+            print("Before api")
             otp = getOTPApi(num)
+            print(num)
             if num:
+                print("Entered")
                 return redirect(url_for("getOTP", mesage = mesage))                
         except:
             flash(u"Number is not registered.", "error")
@@ -481,7 +484,7 @@ def generateOTP():
 
 def getOTPApi(number):
     account_sid = "AC6d699aeaa01fc41b674dac09ab7b9f9c"
-    auth_token = "8bff873d2b1c45c44f6243f721f6fc40"
+    auth_token = "000d8dfde7832aa6adc1ca179a40d66f"
     client = Client(account_sid, auth_token)
     otp = generateOTP()
     body = 'Your OTP is' + str(otp)
