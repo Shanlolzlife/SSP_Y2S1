@@ -221,7 +221,6 @@ def register():
             checkpolicy = policy.test(password)
             if stats.strength() < 0.50:
                 print(stats.strength())
-                msg = "Password not strong enough. Avoid consecutive characters and easily guessed words."
             elif stats.strength() > 0.50:
                 # s=password
                 # passwd = s.encode('utf-8')
