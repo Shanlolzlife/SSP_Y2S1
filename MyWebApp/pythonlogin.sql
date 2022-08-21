@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 `phoneno` varchar(15) NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-INSERT INTO `accounts` (`id`, `username`, `password`, `email`,`phoneno`) VALUES (1, 'test', 'test', 'gayhoe69wannabe@gmail.com', '+6597223483');
+INSERT INTO `accounts` (`id`, `username`, `password`, `email`,`phoneno`) VALUES (1, 'test', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2YWx1ZSI6InRlc3QifQ.nYeCAVUoDAw5t5XjqUnGiMypzSxUIt0o5SDhwEBWsOA', 'sjoana448@gmail.com', '+6591995560');
 
 select * from accounts
